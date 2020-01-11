@@ -29,7 +29,7 @@ export default class App extends Component {
         this.setState({
           todoItems:[...this.state.todoItems,
           {action : task,  done:false}],
-        });
+        }, localStorage.setItem("todos", JSON.stringify(this.state)));
     }
   }
 
@@ -47,6 +47,20 @@ export default class App extends Component {
       ) 
   
   
+  componentDidMount = () => {
+    let data = localStorage.getItem("todos");
+    this.setState(data != null ? JSON.parse(data): 
+                                  {
+                                    userName : "Ayoub",
+                                    todoItems : [
+                                      {action:"Buy Flowers", done:false},
+                                      {action:"Get Shoes", done:false},
+                                      {action:"Collect Tickets", done:true },
+                                      {action:"Call Joe", done:true}],
+                                    showCompleted : true
+                                  }  
+    );
+  }
 
 
   render(){
